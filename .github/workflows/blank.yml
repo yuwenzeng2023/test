@@ -1,4 +1,4 @@
-name: capital-admin
+name: test
 on:
   workflow_dispatch:
   push:

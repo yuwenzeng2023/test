@@ -1,0 +1,11 @@
+name: Reusable Build & Deploy
+
+jobs:
+  build:
+    name: BUILD
+    uses: ./.github/workflows/build.yml
+
+  deploy:
+    name: DEPLOY
+    needs: build
+    uses: ./.github/workflows/deploy.yml

@@ -1,0 +1,12 @@
+name: Reusable Build
+
+jobs:
+  build:
+    name: Reusable Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - shell: bash
+        run: |
+          echo 'build'
