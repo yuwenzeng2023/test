@@ -2,10 +2,11 @@ name: Reusable Build & Deploy
 
 on:
   workflow_call:
-    APP_NAME:
-        description: 'The name of the application'
-        required: false
-        type: string
+    inputs:
+      APP_NAME:
+          description: 'The name of the application'
+          required: false
+          type: string
 
 jobs:
   build:
