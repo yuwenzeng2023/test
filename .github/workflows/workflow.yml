@@ -10,9 +10,9 @@ on:
 jobs:
   build:
     name: BUILD
-    uses: ./.github/workflows/reusable/build.yml
+    uses: ./.github/workflows/build.yml
 
   deploy:
     name: DEPLOY
     needs: build
-    uses: ./.github/workflows/reusable/deploy.yml
+    uses: ./.github/workflows/deploy.yml

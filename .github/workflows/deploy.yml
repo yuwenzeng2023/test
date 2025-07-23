@@ -1,5 +1,12 @@
 name: Reusable Deploy
 
+on:
+  workflow_call:
+    APP_NAME:
+        description: 'The name of the application'
+        required: false
+        type: string
+        
 jobs:
   build:
     name: Reusable Deloy
