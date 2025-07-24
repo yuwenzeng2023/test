@@ -17,14 +17,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+        
       - name: set env
         id: set-env
         run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
 
       - name: Run Script
         id: run-script
-        uses: .github/actions/gen-matrix
+        uses: ./.github/actions/gen-matrix
         with:
           script: ${{ inputs.script }}
 
