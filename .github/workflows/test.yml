@@ -5,6 +5,15 @@ on:
     branches:
       main
 
+env:
+  ENV_NAME: production
+
 jobs:
   release:
-    uses: ./.github/workflows/workflow.yml
+    uses: ./.github/workflows/reusable.yml
+    with:
+      script: |
+        function ({ env }) {
+          console.log(111, env)
+          return `Deploying to ${env.ENV_NAME} with tag ${env.IMAGE_TAG}`;
+        }

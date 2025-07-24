@@ -1,0 +1,43 @@
+name: Reusable Build & Deploy
+
+on:
+  workflow_call:
+    inputs:
+      script:
+        required: true
+        type: string
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  eval:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.eval.outputs.result }}
+    steps:
+      - name: set env
+        run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
+
+      - name: Eval user-provided function
+        id: eval
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const func = eval(`(${inputs.script})`);
+            const result = func({
+              env: process.env,
+              github: github,
+              core: core
+            });
+
+            core.setOutput('result', result);
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [eval]
+    steps:
+      - name : Notify Deployment
+        shell: bash
+        run: |
+          echo "Deployment result: ${{ needs.eval.outputs.result }}"
