@@ -26,9 +26,11 @@ async function run() {
     console.log("[Run] Start processing matrix config");
 
     const SCRIPT = getInput("SCRIPT");
-    const result = eval(`(${SCRIPT})`);
+    const Func = eval(`(${SCRIPT})`);
 
-    setOutput("result", result);
+    setOutput("result", Func({
+        env: process.env
+    }));
 
     console.log("[Run] All done ✅");
   } catch (err) {
