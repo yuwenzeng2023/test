@@ -8,8 +8,6 @@ on:
         type: string
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
 
   eval:
     runs-on: ubuntu-latest
