@@ -24,14 +24,14 @@ jobs:
         env:
           USER_SCRIPT: ${{ inputs.script }}
         run: |
-          node -e "
+          node -e `
             const fs = require('fs');
             const func = eval('(' + process.env.USER_SCRIPT + ')');
             const result = func({ env: process.env });
             const serialized = typeof result === "string" ? result : JSON.stringify(result);
             const safeValue = serialized.replace(/\n/g, "%0A").replace(/\r/g, "%0D");
             fs.appendFileSync(process.env.GITHUB_OUTPUT, `result=${safeValue}\n`);
-          "
+          `
 
   notify:
     runs-on: ubuntu-latest
