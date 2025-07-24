@@ -19,6 +19,8 @@ jobs:
         run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
 
       - name: Write script file
+        env:
+          APP_NAME: "123"
         run: |
           cat <<'EOF' > script.js
           const userFunc = ${{
