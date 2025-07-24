@@ -14,6 +14,6 @@ jobs:
     with:
       script: |
         function ({ env }) {
-          console.log('Running script with env:', env
+          console.log('Running script with env:', env)
           return { name: 'production', appName: env.APP_NAME, imageTag: env.IMAGE_TAG };
         }

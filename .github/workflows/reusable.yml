@@ -22,20 +22,12 @@ jobs:
         env:
           APP_NAME: "123"
         run: |
-          cat <<'EOF' > script.js
-          const userFunc = ${{
-            inputs.script
-          }};
-          const result = userFunc({ env: process.env });
-          console.log('[RESULT]', result);
-          EOF
-
-      - name: Run script
-        id: run-script
-        run: |
-          node script.js > output.log
-          cat output.log
-          result=$(grep "\[RESULT\]" output.log | sed 's/\[RESULT\] //')
+          result=$(node -e "
+            const userFunc = ${{ inputs.script }};
+            const output = userFunc({ env: process.env });
+            console.log(output);
+          ")
+          echo "result=$result"
           echo "result=$result" >> $GITHUB_OUTPUT
 
   notify:
