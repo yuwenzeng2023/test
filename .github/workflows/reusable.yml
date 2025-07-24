@@ -15,6 +15,9 @@ jobs:
     outputs:
       result: ${{ steps.run-script.outputs.result }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
       - name: set env
         id: set-env
         run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
