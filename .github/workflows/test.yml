@@ -15,5 +15,5 @@ jobs:
       script: |
         function ({ env }) {
           console.log(111, env)
-          return `Deploying to ${env.ENV_NAME} with tag ${env.IMAGE_TAG}`;
+          return { name: 'production' };
         }
