@@ -22,13 +22,13 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const func = eval(`(${inputs.script})`);
+            const scriptText = core.getInput('script');
+            const func = eval(`(${scriptText})`);
             const result = func({
               env: process.env,
-              github: github,
-              core: core
+              github,
+              core
             });
-
             core.setOutput('result', result);
 
   notify:
