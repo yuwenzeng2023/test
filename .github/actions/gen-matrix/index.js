@@ -27,10 +27,13 @@ async function run() {
 
     const SCRIPT = getInput("SCRIPT");
     const Func = eval(`(${SCRIPT})`);
-
-    setOutput("result", Func({
+    const result = Func({
         env: process.env
-    }));
+    })
+
+    console.log(111, result)
+
+    setOutput("result", result);
 
     console.log("[Run] All done ✅");
   } catch (err) {
