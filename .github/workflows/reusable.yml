@@ -4,6 +4,7 @@ on:
   workflow_call:
     inputs:
       script:
+        description: "JavaScript function as string"
         required: true
         type: string
 
@@ -18,17 +19,18 @@ jobs:
         id: set-env
         run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
 
-      - name: Write script file
+      - name: Run user script in node and write output
+        id: run-script
         env:
-          APP_NAME: "123"
+          USER_SCRIPT: ${{ inputs.script }}
         run: |
-          result=$(node -e "
-            const userFunc = ${{ inputs.script }};
-            const output = userFunc({ env: process.env });
-            console.log(output);
-          ")
-          echo "result=$result"
-          echo "result=$result" >> $GITHUB_OUTPUT
+          node -e "
+            const fs = require('fs');
+            const func = eval('(' + process.env.USER_SCRIPT + ')');
+            const result = func({ env: process.env });
+            // 把结果写入 GitHub Actions 输出变量
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `result=${result}\n`);
+          "
 
   notify:
     runs-on: ubuntu-latest
