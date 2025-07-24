@@ -20,13 +20,13 @@ jobs:
         
       - name: set env
         id: set-env
-        run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
+        run: echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
 
       - name: Run Script
         id: run-script
         uses: ./.github/actions/gen-matrix
         env:
-          APP_NAME: 11122233
+          test: "test"
         with:
           script: ${{ inputs.script }}
 

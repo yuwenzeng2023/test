@@ -13,7 +13,8 @@ jobs:
     uses: ./.github/workflows/reusable.yml
     with:
       script: |
-        function ({ env }) {
-          console.log('Running script with env:', env)
-          return { name: 'production', appName: env.APP_NAME, imageTag: env.IMAGE_TAG };
-        }
+        ({ env }) =>{
+          const APP_NAME = 'decode-portal';
+          const IMAGE_NAME = `decode-core-hub/${APP_NAME}`;
+          return { APP_NAME, IMAGE_NAME, BRANCH_NAME: env.BRANCH_NAME };
+        } 
