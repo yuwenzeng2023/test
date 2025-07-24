@@ -1,0 +1,11 @@
+name: Generate Matrix
+description: "Generate matrix"
+
+inputs:
+  script:
+    description: "JavaScript function as string"
+    required: true
+
+runs:
+  using: "node"
+  main: "index.js"

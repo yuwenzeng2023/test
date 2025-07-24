@@ -19,20 +19,11 @@ jobs:
         id: set-env
         run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
 
-      - name: Run user script in node and write output
+      - name: Run Script
         id: run-script
-        env:
-          USER_SCRIPT: ${{ inputs.script }}
-        run: |
-          node -e `
-            const fs = require('fs');
-            const func = eval('(' + process.env.USER_SCRIPT + ')');
-            const result = func({ env: process.env });
-            console.log('Script result:', result);
-            const serialized = typeof result === "string" ? result : JSON.stringify(result);
-            const safeValue = serialized.replace(/\n/g, "%0A").replace(/\r/g, "%0D");
-            fs.appendFileSync(process.env.GITHUB_OUTPUT, `result=${safeValue}\n`);
-          `
+        uses: ./.github/actions/gen-matrix
+        with:
+          script: ${{ inputs.script }}
 
   notify:
     runs-on: ubuntu-latest
