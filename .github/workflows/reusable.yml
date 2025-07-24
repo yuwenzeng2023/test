@@ -23,14 +23,7 @@ jobs:
         with:
           script: |
             const scriptText = core.getInput('script');
-            const func = eval(`(${scriptText})`);
-            const result = func({
-              env: process.env,
-              github,
-              core
-            });
-            core.setOutput('result', result);
-
+            console.log('Running user-provided script:', scriptText);
   notify:
     runs-on: ubuntu-latest
     needs: [eval]
