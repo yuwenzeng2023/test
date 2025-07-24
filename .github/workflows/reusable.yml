@@ -25,6 +25,8 @@ jobs:
       - name: Run Script
         id: run-script
         uses: ./.github/actions/gen-matrix
+        env:
+          APP_NAME: 11122233
         with:
           script: ${{ inputs.script }}
 
