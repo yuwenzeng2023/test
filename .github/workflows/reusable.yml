@@ -12,18 +12,29 @@ jobs:
   eval:
     runs-on: ubuntu-latest
     outputs:
-      result: ${{ steps.eval.outputs.result }}
+      result: ${{ steps.run-script.outputs.result }}
     steps:
       - name: set env
         run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
 
-      - name: Eval user-provided function
-        id: eval
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const scriptText = core.getInput('script');
-            console.log('Running user-provided script:', scriptText);
+      - name: Write script file
+        run: |
+          cat <<'EOF' > script.js
+          const userFunc = ${{
+            inputs.script
+          }};
+          const result = userFunc({ env: process.env });
+          console.log('[RESULT]', result);
+          EOF
+
+      - name: Run script
+        id: run-script
+        run: |
+          node script.js > output.log
+          cat output.log
+          result=$(grep "\[RESULT\]" output.log | sed 's/\[RESULT\] //')
+          echo "result=$result" >> $GITHUB_OUTPUT
+
   notify:
     runs-on: ubuntu-latest
     needs: [eval]
