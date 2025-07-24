@@ -15,6 +15,7 @@ jobs:
       result: ${{ steps.run-script.outputs.result }}
     steps:
       - name: set env
+        id: set-env
         run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
 
       - name: Write script file
