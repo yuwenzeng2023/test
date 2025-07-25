@@ -15,6 +15,9 @@ jobs:
       - name : Notify Deployment
         shell: bash
         run: |
+          echo "[Debug] Current directory:"
+          pwd
+          
           # Set environment variables; default to empty string if not provided
           export HYPHEN_BRANCH="${BRANCH_NAME:+-$BRANCH_NAME}"
 
