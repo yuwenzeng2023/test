@@ -17,7 +17,10 @@ jobs:
         run: |
           echo "[Debug] Current directory:"
           pwd
-          
+
+          echo "[Debug] Directory tree:"
+          find . -type f -print
+
           # Set environment variables; default to empty string if not provided
           export HYPHEN_BRANCH="${BRANCH_NAME:+-$BRANCH_NAME}"
 
