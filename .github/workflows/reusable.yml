@@ -23,7 +23,7 @@ jobs:
 
           # Show the original .env file content
           echo "[Replace] Before envsubst:"
-          cat "${{ inputs.ENV_CONFIG_FILE }}"
+          cat "./${{ inputs.ENV_CONFIG_FILE }}"
 
           # Replace placeholders in the file using envsubst
           envsubst < "${{ inputs.ENV_CONFIG_FILE }}" > "${{ inputs.ENV_CONFIG_FILE }}.tmp"
