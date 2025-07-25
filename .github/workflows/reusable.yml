@@ -12,6 +12,9 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name : Notify Deployment
         shell: bash
         run: |
@@ -21,6 +24,7 @@ jobs:
           echo "[Debug] Directory tree:"
           find . -type f -print
 
+          export BRANCH_NAME="123123"
           # Set environment variables; default to empty string if not provided
           export HYPHEN_BRANCH="${BRANCH_NAME:+-$BRANCH_NAME}"
 
